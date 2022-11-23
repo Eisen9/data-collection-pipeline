@@ -1,3 +1,4 @@
 # Data Collection Pipeline
 
-Getting started
+Getting started.
+Status: Currently on hold.
