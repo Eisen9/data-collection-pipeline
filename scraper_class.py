@@ -1,55 +1,74 @@
-# This class will contain all methods used to scrape data from your chosen website.
+import time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+driver = webdriver.Chrome()
 
-# Once you have created your methods to navigate the website and get the required data, you should be able to initialise an instance of this class and use it to scrape the website selected.
+# Using Selenium, create a ScrapeWeb class that scrapes the following website:
+# https://www.johnlewis.com/
 
-# Remember: you are using John Lewis as an example here, but you should be able to use this class to scrape any website you choose.
-class Scraper:
+
+# The ScrapeWeb class should contain the following methods:
+# scroll - this method should scroll to the bottom of the page
+# click_next_button - this method should click the next button
+
+
+class ScrapeWeb:
+    '''
+    The ScrapeWeb class defines the methods used to scrape the John Lewis website.
+    It contains the following methods:
+    scroll - this method scrolls to the bottom of the page
+    click_next_button - this method clicks the next button
+    '''
     def __init__(self, driver):
-        self.driver = driver
+        '''
+        The __init__ method initialises the ScrapeWeb class.
+        It takes the following arguments:
+        driver - the Selenium driver
 
-    def get_data(self): # TODO: note sure about this 
-        # This method should return a list of dictionaries. Each dictionary should contain the data you want to scrape from the website.
-        # The keys of the dictionary should be the column names of the table you are creating in the database.
-        # The values of the dictionary should be the data you are scraping from the website.
-        # The list of dictionaries should contain one dictionary for each row of data you want to store in the database.
-        # You can use the following code to test your method:
-        # data = self.get_data()
-        # for row in data:
-        #     print(row)
-        #     print()
-        return []
-    def get_url(self):
-        # This method should return the url of the website you want to scrape.
-        return ""
-    def get_name(self):
-        # This method should return the name of the website you want to scrape.
-        return ""
-    def get_description(self):
-        # This method should return a description of the website you want to scrape.
-        return ""
-    def get_website(self):
-        # This method should return the url of the website you want to scrape.
-        return ""
-    def get_logo(self):
-        # This method should return the url of the logo of the website you want to scrape.
-        return ""
-    def get_tags(self):
-        # This method should return a list of tags that describe the website you want to scrape.
-        return []
-    def get_item_url(self, item):
-        # This method should return the url of the item you want to scrape.
-        return ""
-    def get_item_name(self, item):
-        # This method should return the name of the item you want to scrape.
-        return ""
-    def get_item_description(self, item):
-        # This method should return a description of the item you want to scrape.
-        return ""
-    def get_item_image(self, item):
-        # This method should return the url of the image of the item you want to scrape.
-        return ""
-    def get_item_tags(self, item):
-        # This method should return a list of tags that describe the item you want to scrape.
-        return []
+        It contains the following attributes:
+        driver - the Selenium driver
+        url - the url of the website to be scraped
     
+        It contains the following actions:
+        1. The driver is assigned to the driver attribute
+        2. The url is assigned to the url attribute
+        3. The driver navigates to the url
+        4. The driver waits for 10 seconds
+        5. The driver maximises the window
+        6. The driver scrolls to the bottom of the page
 
+        '''
+        self.driver = driver
+        self.url = "https://www.johnlewis.com/"
+        self.driver.get(self.url)
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+
+    def scroll(self):
+        '''
+        The scroll method scrolls to the bottom of the page.
+        It takes no arguments.
+        It contains the following actions:
+        1. The driver scrolls to the bottom of the page
+        2. The driver waits for 2 seconds
+        '''
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
+        
+    def click_next_button(self):
+        '''
+        The next_button method clicks the next button.
+        It takes no arguments.
+        It contains the following actions:
+        1. The driver clicks the next button
+        2. The driver waits for 2 seconds
+        '''
+        self.driver.find_element_by_class_name("next").click()
+        time.sleep(2)
+
+
+# create an instance of the ScrapeWeb class
+john_lewis = ScrapeWeb(driver)
