@@ -66,16 +66,16 @@ class ScrapeWeb:
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)
         
-    # def click_next_button(self):
-    #     '''
-    #     The next_button method clicks the next button.
-    #     It takes no arguments.
-    #     It contains the following actions:
-    #     1. The driver clicks the next button
-    #     2. The driver waits for 2 seconds
-    #     '''
-    #     self.driver.find_element_by_class_name("next").click()
-    #     time.sleep(2)
+    def click_next_button(self):
+        '''
+        The next_button method clicks the next button.
+        It takes no arguments.
+        It contains the following actions:
+        1. The driver clicks the next button
+        2. The driver waits for 2 seconds
+        '''
+        self.driver.find_element_by_class_name("next").click()
+        time.sleep(2)
 
     def bypass_cookies_and_login(self):
         '''

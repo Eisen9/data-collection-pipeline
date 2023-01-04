@@ -120,5 +120,4 @@ class ScrapeWeb:
 
 
 # create an instance of the ScrapeWeb class
-# 
 john_lewis = ScrapeWeb(driver)
