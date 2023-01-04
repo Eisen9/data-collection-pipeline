@@ -1,3 +1,7 @@
+'''
+In this file, you find a different method for bypassing cookies.
+'''
+
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -16,7 +20,6 @@ driver = webdriver.Chrome()
 # click_next_button - this method should click the next button
 # bypass_cookies_and_login - this method should bypass the cookies and login popups. Create
 # an exception if the website does not require the user to accept cookies or login.
-# link_to_page - gets link to each page where the details can be found, store these in a list
 
 
 class ScrapeWeb:
@@ -63,16 +66,16 @@ class ScrapeWeb:
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)
         
-    def click_next_button(self):
-        '''
-        The next_button method clicks the next button.
-        It takes no arguments.
-        It contains the following actions:
-        1. The driver clicks the next button
-        2. The driver waits for 2 seconds
-        '''
-        self.driver.find_element_by_class_name("next").click()
-        time.sleep(2)
+    # def click_next_button(self):
+    #     '''
+    #     The next_button method clicks the next button.
+    #     It takes no arguments.
+    #     It contains the following actions:
+    #     1. The driver clicks the next button
+    #     2. The driver waits for 2 seconds
+    #     '''
+    #     self.driver.find_element_by_class_name("next").click()
+    #     time.sleep(2)
 
     def bypass_cookies_and_login(self):
         '''
@@ -90,32 +93,18 @@ class ScrapeWeb:
         driver.get(URL)
         delay = 10
         try:
-            myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[3]/div[1]/div/div[1]/div/div[2]/button[1]')))
-            print("Page is ready!")
+            WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.XPATH, '//*[@id="cookie-script-tags"]')))
+            print("Frame Ready!")
+            driver.switch_to.frame('cookie-script-tags') # switch to the iframe with the cookie popup
+            accept_cookies_button = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.XPATH, '//*[@id="save"]'))) 
+            print("Accept Cookies Button Ready!")
+            accept_cookies_button.click()
+            time.sleep(1) 
         except TimeoutException:
             print("Loading took too much time!")
+        return driver         
 
-        # try and except for the login popup
-        try:
-            myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div/header/div/div/div/div[3]/nav/ul/li[1]/div/div')))
-            print("Page is ready!")
-        except TimeoutException:
-            print("Loading took too much time!")
-
-    def link_to_page(self):
-        '''
-        The link_to_page method gets the link to each page where the details can be found.
-        It takes no arguments.
-        It contains the following actions:
-        1. The driver finds the links to each page
-        2. The driver waits for 2 seconds
-        3. The driver stores the links in a list
-        '''
-        self.driver.find_elements_by_xpath("//a[@class='product-card__link']")
-        time.sleep(2)
-        list = self.driver.find_elements_by_xpath("//a[@class='product-card__link']")
-        return list
-
+            
         
 
 
